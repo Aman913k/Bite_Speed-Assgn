@@ -82,14 +82,13 @@ func CreateContact(email, phoneNumber *string, linkedID *int, precedence string)
 	query := `INSERT INTO contacts (phone_number, email, linked_id, link_precedence, created_at, updated_at) 
 	          VALUES (?, ?, ?, ?, NOW(), NOW())`
 
-	// Execute the query
 	result, err := database.DB.Exec(query, phoneNumber, email, linkedID, precedence)
 	if err != nil {
 		log.Printf("Error inserting contact (email: %v, phone: %v, linkedID: %v): %v", email, phoneNumber, linkedID, err)
 		return 0
 	}
 
-	// Get the last inserted ID
+	
 	id, err := result.LastInsertId()
 	if err != nil {
 		log.Println("Error getting last insert ID:", err)
